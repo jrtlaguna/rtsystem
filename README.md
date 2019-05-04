@@ -3,8 +3,11 @@
 
 
 Before running:
-###Run mysql/xampp/wamp
-###Run following thru terminal
+### Run mysql/xampp/wamp
+
+
+
+### Run following thru terminal:
 ```
 pip install -R requirements.txt
 python3 util/setup_database.py
