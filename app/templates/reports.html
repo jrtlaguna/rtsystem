@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    QC-EPWMD | Employee Accomplishment Report System
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+
+  <link rel="logo" sizes="76x76" href="{{ url_for('static', filename='img/logo.png') }}"" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}"" />
+
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="{{ url_for('static', filename='css/bootstrap4.min.css') }}" rel="stylesheet" />
+  <link href="/static/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/material-bootstrap-wizard.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet" />
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+<!-- Start of Sidebar -->
+    <div class="sidebar" data-color="blue">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <img src="{{ url_for('static', filename='img/logo.png') }}">
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          <h6 class="system-name">EPWMD Employee <br>Accomplishment<br>Report System</h6>
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="{{ url_for('index.home') }}">
+              <i class="now-ui-icons shopping_shop"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.create') }}">
+              <i class="now-ui-icons files_single-copy-04"></i>
+              <p>Create New Report</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.pending') }}">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>View Pending Reports</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="{{ url_for('index.reports') }}">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Reports</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('accounts.accounts') }}">
+              <i class="now-ui-icons users_circle-08"></i>
+              <p>Manage Accounts</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('positions.positions') }}">
+              <i class="now-ui-icons objects_globe"></i>
+              <p>Manage Positions</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.archive') }}">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Archive</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+<!-- End of Sidebar -->
+
+    <div class="main-panel" id="main-panel">
+<!-- Start of Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#reports">Reports</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <!-- <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                  </div>
+                </div>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="now-ui-icons ui-1_settings-gear-63"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Settings</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{{ url_for('profile.profile') }}">My Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('login.logout') }}">Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<!-- End Navbar -->
+
+<!-- Start of Header -->
+      <div class="panel-header panel-header-lg">
+        <h5 id="header-title"><b>View Reports</b></h5>
+        <p id="header-desc">This page stores all accomplishment reports.</p>
+      </div>
+<!-- End of Header -->
+
+<!-- Start of Content -->
+      <div class="content">
+        <div class="content-2">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-chart">
+                <button type="button" class="btn btn-link"><i class="now-ui-icons arrows-1_minimal-left"></i> BACK TO MANAGE ACCOUNTS</button>
+                <div class="card-header">
+                    <h5 id="main-profile">ANTONIO, PAUL LAWRENCE O.</h5>
+                    <p class="title-header">Checker - Administrative Division</p>
+                </div>
+                <div class="card-body ">
+                  <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                    <div id="report1"class="card">
+                      <div class="card-header" role="tab" id="headingOne11">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseOne11" aria-expanded="false" aria-controls="collapseOne11">
+                          <h6 class="mb-0">
+                            FEBRUARY 26 - MARCH 25, 2019 <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
+                          </h6>
+                          <p class="report-status">Pending</p>
+                        </a>
+                      </div>
+
+                      <div id="collapseOne11" class="collapse" role="tabpanel" aria-labelledby="headingOne11" data-parent="#accordionEx1">
+                        <div class="card-body">
+                          <div class="row">
+    												<table id="summary1">
+    												  <tr>
+    												    <th width="20%">Date</th>
+    												    <th>Task Accomplished</th>
+    												  </tr>
+    												  <tr>
+    												    <td style="text-align:center">December 26 - 29, 2018</td>
+    												    <td>
+    															<ol>
+    																<li>Updated Daily Time Records (DTR)</li>
+    																<li>Sorted personnels forms</li>
+    																<li>Performed other functions</li>
+    															</ol>
+    														</td>
+    												  </tr>
+    												  <tr>
+    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
+    														<td>
+    															<ol>
+    																<li>Updated Daily Time Records (DTR)</li>
+    																<li>Sorted personnels forms</li>
+    																<li>Performed other functions</li>
+    															</ol>
+    														</td>
+    												  </tr>
+    												</table>
+    											</div>
+                          <div class="pull-left">
+                            <button type="button" class="btn btn-danger" onclick="deleteReport()">Delete</button>
+                          </div>
+                          <div class="pull-right">
+                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#editReportForm">Edit</button>&nbsp;
+                            <button type="submit" class="btn btn-success">Print</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card">
+
+                      <div class="card-header" role="tab" id="headingTwo21">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
+                          aria-expanded="false" aria-controls="collapseTwo21">
+                          <h6 class="mb-0">
+                            JANUARY 26 - FEBRUARY 25, 2019 <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
+                          </h6>
+                          <p class="report-status">Approved</p>
+                        </a>
+                      </div>
+
+                      <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21" data-parent="#accordionEx1">
+                        <div class="card-body">
+                          <div class="row">
+    												<table id="summary2">
+    												  <tr>
+    												    <th width="20%">Date</th>
+    												    <th>Task Accomplished</th>
+    												  </tr>
+    												  <tr>
+    												    <td style="text-align:center">December 26 - 29, 2018</td>
+    												    <td>
+    															<ol>
+    																<li>Updated Daily Time Records (DTR)</li>
+    																<li>Sorted personnels forms</li>
+    																<li>Performed other functions</li>
+    															</ol>
+    														</td>
+    												  </tr>
+    												  <tr>
+    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
+    														<td>
+    															<ol>
+    																<li>Updated Daily Time Records (DTR)</li>
+    																<li>Sorted personnels forms</li>
+    																<li>Performed other functions</li>
+    															</ol>
+    														</td>
+    												  </tr>
+    												</table>
+    											</div>
+                          <div class="pull-left">
+                            <button type="button" class="btn btn-danger">Delete</button>
+                          </div>
+                          <div class="pull-right">
+                            <button type="button" class="btn btn-primary">Edit</button>&nbsp;
+                            <button type="submit" class="btn btn-success">Print</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#viewEditHistory">Change Log</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="viewEditHistory">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="title">Change Log</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <table id="change-log">
+                <tr>
+                  <th width="10%">Timestamp</th>
+                  <th width="70%">Changes</th>
+                  <th width="20%">Updated by</th>
+                </tr>
+                <tr>
+                  <td>12-28-2018 12:23:55 PM</td>
+                  <td><b>Deleted:</b> Performed other functions <i>(January 7 - 11, 2019)</i><br>
+                    <b>Edited:</b> Performed other functions to Performed new functions <i>(January 14 - 18, 2019)</i><br>
+                  <b>Edited:</b> Half-Day to Absent <i>(January 5, 2019)</i></td>
+                  <td>Vincent Ferdinand Paul G. Vinarao</td>
+                </tr>
+                <tr>
+                  <td>1-5-2019 12:23:55 PM</td>
+                  <td><b>Edited:</b> Absent to Half-Day <i>(January 5, 2019)</i></td>
+                  <td>Vincent Ferdinand Paul G. Vinarao</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="editReportForm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="title">Edit Accomplishment Report</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="wizard-container">
+              <div class="card wizard-card" data-color="yellow" id="wizardProfile">
+                <form action="" method="">
+                  <div class="wizard-header">
+                  </div>
+                  <div class="wizard-navigation">
+                    <ul>
+                      <li><a href="#attendance" data-toggle="tab">Attendance</a></li>
+                      <li><a href="#tasks" data-toggle="tab">Tasks</a></li>
+                      <li><a href="#review" data-toggle="tab">Review</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="tab-content">
+                    <div class="tab-pane" id="attendance">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group label-floating">
+                              <label class="control-label">Select an Attendance Period</label>
+                              <select id="attendance-period" name="attendance" class="form-control" required>
+                                <option disabled="" selected=""></option>
+                                <option value="January 26-February 25"> January 26 - February 25 </option>
+                                <option value="February 26-March 25"> February 26 - March 25 </option>
+                                <option value="March 26-April 25"> March 26 - April 25 </option>
+                                <option value="April 26-May 25"> April 26 - May 25 </option>
+                                <option value="May 26-June 25"> May 26 - June 25 </option>
+                                <option value="June 26-July 25"> June 26 - July 25 </option>
+                                <option value="July 26-August 25"> July 26 - August 25 </option>
+                                <option value="August 26-September 25"> August 26 - September 25 </option>
+                                <option value="September 26-October 25"> September 26 - October 25 </option>
+                                <option value="October 26-November 25"> October 26 - November 25 </option>
+                                <option value="November 26-December 25"> November 26 - December 25 </option>
+                                <option value="December 26-January 25"> December 26 - January 25 </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="per">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <h6 class="wizard-title">Attendance Period:</h6>
+                              <p id="attendance-period-label" class="dates">-</p>
+                            </div>
+                            <div class="col-sm-6">
+                              <h6 class="wizard-title">Payroll Period:</h6>
+                              <p id="payroll-period-label" class="dates">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <p class="card-category">Select a date:</p>
+                            <div id="datepicker"></div>
+                          </div>
+                          <div class="col-sm-4">
+                            <br>
+                            <p class="card-category">Select reason:</p>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="attendance" id="attendanceAbsent" value="absent"> Absent
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="attendance" id="attendanceHalfday" value="halfday"> Half-day
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="attendance" id="atttendanceHoliday" value="holiday"> Holiday
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="attendance" id="attendanceSuspension" value="suspended"> Suspended
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="attendance" id="attendanceNone" value="none" checked> None
+                                <span class="circle">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                            <br>
+                            <div class="ui-legend">
+                              <p class="card-category">Legend:</p>
+                              <ul style="list-style: none; padding-left: 20px;">
+                                <li>
+                                  <div class="row">
+                                    <p class="legend legend-absent">Absent</p>
+                                    <p class="legend legend-holiday">Holiday</p>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="row">
+                                    <p class="legend legend-halfday">Half-day</p>
+                                    <p class="legend legend-suspended">Suspended</p>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-pane" id="tasks">
+                      <div class="tab-header">
+
+                      </div>
+                      <div class="accordion md-accordion" id="task-cards" role="tablist" aria-multiselectable="true">
+                      </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="review">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <h5 class="title">Accomplishment Report</h5>
+                          <p class="acc-description">Attendance Period: December 26, 2018 - January 25, 2019</p>
+                          <p class="acc-description">Payroll Period: February 1-28, 201
+                        </div>
+
+                        <table id="summary3">
+                          <tr>
+                            <th width="20%">Date</th>
+                            <th>Task Accomplished</th>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center">December 26 - 29, 2018</td>
+                            <td>
+                              <ol>
+                                <li>Updated Daily Time Records (DTR)</li>
+                                <li>Sorted personnels forms</li>
+                                <li>Performed other functions</li>
+                              </ol>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="text-align:center">December 31, 2018 - January 5, 2019</td>
+                            <td>
+                              <ol>
+                                <li>Updated Daily Time Records (DTR)</li>
+                                <li>Sorted personnels forms</li>
+                                <li>Performed other functions</li>
+                              </ol>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wizard-footer">
+                    <div class="pull-right">
+                      <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Next' />
+                      <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Submit' />
+                    </div>
+
+                    <div class="pull-left">
+                      <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+                    </div>
+                    <div class="clearfix">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div> <!-- wizard container -->
+          </div>
+        </div>
+      </div>
+
+<!-- Start of Footer -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="{{ url_for('index.about') }}">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('index.support') }}">
+                  Support
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Design from
+            <a href="https://www.invisionapp.com" target="_blank">Invision</a> & <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>. Developed by ReineTech.
+          </div>
+        </div>
+      </footer>
+<!-- End of Footer -->
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='js/jquery-ui.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/core/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.bootstrap.js') }}" type="text/javascript"></script>
+
+  <!-- from create html -->
+  <script src="{{ url_for('static', filename='js/material-bootstrap-wizard.js') }}"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+	<script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/create.js') }}"></script>
+
+  <!-- from create html -->
+  <script>
+		$('#attendance-period').change(function() {
+			var attendancePeriod = getAttendancePeriod($(this).val());
+			var payrollPeriod = getPayrollPeriod($(this).val());
+			$('#attendance-period-label').text(attendancePeriod);
+			$('#payroll-period-label').text(payrollPeriod);
+
+			updateTaskTab(attendancePeriod);
+		});
+
+		function updateTaskTab(attendancePeriod) {
+			var weeks = getWeeksInMonth(attendancePeriod);
+			$('#task-cards').empty();
+			$('#select-week').empty();
+			$('#task-cards').append(`
+					<div class="row">
+						<span class="col-sm">
+							<p class="info-text"> Select all accomplished tasks per week. </p>
+						</span>
+						<span class="col-sm-3">
+							<div class="pull-right">
+								<button type="button" class="btn btn-md btn-primary btn-add"  data-toggle="modal" data-target="#addTaskForm">Add Task</button>
+							</div>
+						</span>
+					</div>`);
+			for( w in weeks) {
+				$('#task-cards').append(`<div id="card${w}" class="card"></div>`);
+				$(`#card${w}`).append(`<div id="card${w}-header" class="card-header" role="tab" id="headingOne1"></div>`);
+				$(`#card${w}-header`).append(`<a data-toggle="collapse" data-parent="#task-cards" href="#collapse${w}" aria-expanded="false" aria-controls="collapse${w}"><h6 class="mb-0">${weeks[w]} <i class="fas fa-angle-down rotate-icon" style="float: right;"></i></h6></a>`);
+				$(`#card${w}`).append(`<div id="collapse${w}" class="collapse" role="tabpanel" aria-labelledby="heading-${w}" data-parent="#task-cards"></div>`);
+				$(`#collapse${w}`).append('<div class="card-body"></div>');
+
+				$('#select-week').append(`<option value="${w}">${weeks[w]}</option>`);
+			}
+		}
+	</script>
+	<script>
+		function addTask() {
+			var week = $('#select-week').children('option:selected').val();
+			var name = $('#task-name').val();
+
+			var html = `<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" value="">${name}<span class="form-check-sign">
+					<span class="check"></span>
+				</span>
+			</label>
+			<div class="edit-delete">
+				<i class="material-icons" style="font-size: 20px;">create</i>
+				<i class="material-icons" style="font-size: 20px; color: #db3636;">clear</i>
+			</div>`;
+
+			if( $('#recurring-toggle').prop('checked')) {
+				$('#select-week option').each(function() {
+					$(`#collapse${$(this).val()} > .card-body`).append(html);
+					$('#recurring-toggle').prop('checked', false);
+				});
+			} else {
+					$(`#collapse${week} > .card-body`).append(html);
+			}
+
+			$('#task-name').val('');
+		}
+	</script>
+
+  <script>
+	$( "#datepicker" ).datepicker({
+		inline: true
+	});
+
+	// Hover states on the static widgets
+	$( "#dialog-link, #icons li" ).hover(
+		function() {
+			$( this ).addClass( "ui-state-hover" );
+		},
+		function() {
+			$( this ).removeClass( "ui-state-hover" );
+		}
+	);
+	</script>
+
+  <!-- from create html -->
+</body>
+
+</html>

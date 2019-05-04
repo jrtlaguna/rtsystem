@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    QC-EPWMD | Employee Accomplishment Report System
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+
+  <link rel="logo" sizes="76x76" href="{{ url_for('static', filename='img/logo.png') }}"" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}"" />
+
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="{{ url_for('static', filename='css/bootstrap4.min.css') }}" rel="stylesheet" />
+  <link href="/static/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <!-- Start of Sidebar -->
+    <div class="sidebar" data-color="blue">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <img src="{{ url_for('static', filename='img/logo.png') }}">
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          <h6 class="system-name">EPWMD Employee <br>Accomplishment<br>Report System</h6>
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active">
+            <a href="{{ url_for('index.home') }}">
+              <i class="now-ui-icons shopping_shop"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.create') }}">
+              <i class="now-ui-icons files_single-copy-04"></i>
+              <p>Create New Report</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.pending') }}">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>View Pending Reports</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.reports') }}">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Reports</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('accounts.accounts') }}">
+              <i class="now-ui-icons users_circle-08"></i>
+              <p>Manage Accounts</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('positions.positions') }}">
+              <i class="now-ui-icons objects_globe"></i>
+              <p>Manage Positions</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('index.archive') }}">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Archive</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End of Sidebar -->
+    <div class="main-panel" id="main-panel">
+<!-- Start of Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#home"> Home</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <!-- <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                  </div>
+                </div>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="now-ui-icons ui-1_settings-gear-63"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Settings</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{{ url_for('profile.profile') }}">My Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('login.logout') }}">Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<!-- End Navbar -->
+
+<!-- Start of Header -->
+      <div class="panel-header panel-header-lg">
+        <h1 id="header-title"><b>Welcome!</b></h1>
+        <p id="header-desc">This is the Employee Accomplishment Report System of Quezon City - Environmental Protection and Waste Management Department.</p>
+      </div>
+<!-- End of Header -->
+
+<!-- Start of Content -->
+      <div class="content">
+        <div class="content-1">
+          <div class="row">
+<!-- CREATE -->
+            <div class="col-md-12">
+<!-- 1 -->
+              <div class="card card-chart">
+                <div class="col-md-12">
+                  <p class="card-category">How to use the system:</p>
+                  <button class="tablink active" onclick="openPage('Create', this, '#ffd95c', 'black')" id="defaultOpen"><i class="now-ui-icons files_single-copy-04 home-buttons"></i><br> CREATE NEW REPORT</button>
+                  <button class="tablink" onclick="openPage('Reports1', this, '#ffd95c', 'black')"><i class="now-ui-icons files_box home-buttons"></i><br> VIEW REPORTS</button>
+                  <button class="tablink" onclick="openPage('Settings1', this, '#ffd95c', 'black')"><i class="now-ui-icons ui-1_settings-gear-63 home-buttons"></i><br> SETTINGS</button>
+                  <br>
+                  <br>
+                  <div id="Create" class="tabcontent">
+                    <div class="card-body ">
+                      <h6 class="sec-title"> HOW TO CREATE A NEW ACCOMPLISHMENT REPORT</h6>
+                        <div class="instructions">
+                          <i class="far fa-calendar"></i>&nbsp;<b>For Attendance</b>:
+                          <ol>
+                            <li>Select an <u>attendance period</u>.</li>
+                            <li>In case of absences and/or holidays:</li>
+                              <ol type="a">
+                                <li>Select a date on the calendar.</li>
+                                <li>Choose the corresponding reason for absence for that day (e.g. absent, holiday, etc.).</li>
+                                <li>Repeat steps for each absence/holiday.</li>
+                              </ol>
+                              <li>Once done, click 'Next.'</li>
+                          </ol>
+                          <i class="far fa-check-square"></i>&nbsp;<b>For Tasks</b>:
+                          <ol>
+                            <li>Select a specific week.</li>
+                            <li>Select all tasks accomplished for the week.</li>
+                            <ul>
+                              <li>For regular tasks, tick the checkboxes before the task.</li>
+                              <li>For tasks with quantity, input the quantity in the box before the task.</li>
+                            </ul>
+                            <li>If task is not yet on the list:</li>
+                            <ol type="a">
+                              <li>Click '<b>Add Task</b>.'
+                              <li>Enter task description.</li>
+                              <li>Select the week it applies to.</li>
+                              <ul>
+                                <li>If the task is applicable for multiple weeks/months, turn on <i class="fa fa-toggle-on text-primary"></i> Recurring Task.</li>
+                              </ul>
+                              <li>If the task involves quantity, turn on <i class="fa fa-toggle-on text-primary"></i> Has Quantity.</li>
+                              <li>Click 'Add'.</li>
+                            </ol>
+                            <li>Once all tasks accomplished for the week have been selected, click 'Next'.</li>
+                          </ol>
+                          <i class="far fa-list-alt"></i>&nbsp;<b>For Review</b>:
+                          <ol>
+                            <li>Review the report.</li>
+                            <li>Once the report is confirmed, click 'Submit'.</li>
+                            <ul>
+                              <li>The accomplishment report will be sent to your designated Section/Division Chief for approval.</li>
+                            </ul>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+
+                  <div id="Reports1" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO VIEW AND PRINT ACCOMPLISHMENT REPORTS</h6>
+                      <div class="instructions">
+                        <i class="far fa-eye"></i>&nbsp;<b>To view and edit accomplishment reports:</b>
+                        <ol>
+                          <li>Select the accomplishment report you want to view.</li>
+                          <ul>
+                            <li>Each report has a corresponding status: Pending or Approved.</li>
+                          </ul>
+                          <li>To edit a report:</li>
+                          <ol type="a">
+                            <li>Click '<b>Edit</b>'.</li>
+                            <li>Edit all necessary details.</li>
+                            <li>Note: By clicking 'Submit', the report will be sent to your Section/Division Chief for re-approval.</li>
+                          </ol>
+                          <li>To view changes made to your reports, click '<b>Change Log</b>'.</li>
+                        </ol>
+                        <i class="far fa-file-alt"></i>&nbsp;<b>To print an <u>approved</u> accomplishment report:</b>
+                        <ol>
+                          <li>Select the accomplishment report you want to print.</li>
+                          <li>Click '<b>Print</b>'.</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="Settings1" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO VIEW YOUR PROFILE AND LOG OUT</h6>
+                      <div class="instructions">
+                        <i class="far fa-user-circle"></i>&nbsp;<b>To view profile</b>:
+                        <ul>
+                          <li>Select 'My Profile'.</li>
+                          <ul>
+                            <li>If changes are necessary, contact the <u>Administrative Division</u>.</li>
+                          </ul>
+                        </ul>
+                        <i class="fas fa-sign-out-alt"></i>&nbsp;<b>To log out from your account:</b>
+                        <ul>
+                          <li>Select 'Logout'.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- 1 -->
+
+<!-- 2 -->
+              <div class="card card-chart">
+                <div class="card-header">
+                </div>
+                <div class="col-md-12">
+                    <p class="card-category">How to use the system:</p>
+                    <button class="tablink active" onclick="openPage('Pending1', this, '#ffd95c', 'black')" id="defaultOpen"><i class="now-ui-icons files_single-copy-04 ui-1_bell-53 home-buttons"></i><br> VIEW PENDING REPORTS</button>
+                    <button class="tablink" onclick="openPage('Reports2', this, '#ffd95c', 'black')"><i class="now-ui-icons files_box home-buttons"></i><br> VIEW REPORTS</button>
+                    <button class="tablink" onclick="openPage('Settings2', this, '#ffd95c', 'black')"><i class="now-ui-icons ui-1_settings-gear-63 home-buttons"></i><br> SETTINGS</button>
+                    <br>
+                    <br>
+
+                    <div id="Pending1" class="tabcontent">
+                      <div class="card-body ">
+                        <h6 class="sec-title"> HOW TO APPROVE ACCOMPLISHMENT REPORTS</h6>
+                        <ol>
+                          <li>Select an employee to view their report.</li>
+                          <li>Review the validity of tasks accomplished by the employee.</li>
+                          <li>If errors within the report are found:</li>
+                          <ul>
+                            <li>Click '<b>Edit</b>'.</li>
+                            <li>Edit necessary information.</li>
+                            <li>Click 'Save'.</li>
+                          </ul>
+                          <li>Click '<b>Approve</b>' to change <u>status</u> of report from "Pending" to "Approved"</li>
+                          <ul>
+                            <li>Report will be sent back to the employee for printing and signing.</li>
+                          </ul>
+                        </ol>
+                      </div>
+                    </div>
+
+                    <div id="Reports2" class="tabcontent">
+                      <div class="card-body">
+                        <h6 class="sec-title">HOW TO VIEW AND PRINT ACCOMPLISHMENT REPORTS</h6>
+                        <div class="instructions">
+                          <i class="far fa-eye"></i>&nbsp;<b>To view accomplishment reports:</b>
+                          <ol>
+                            <li>Select an employee.</li>
+                            <li>Select the accomplishment report you want to view.</li>
+                            <ul>
+                              <li>Each report has a corresponding status: Pending or Approved.</li>
+                            </ul>
+                            <li>To view changes made to the reports, click '<b>Change Log</b>'.</li>
+                          </ol>
+                          <i class="far fa-file-alt"></i>&nbsp;<b>To print an <u>approved</u> accomplishment report:</b>
+                          <ol>
+                            <li>Select the accomplishment report you want to print.</li>
+                            <li>Click '<b>Print</b>'.</li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="Settings2" class="tabcontent">
+                      <div class="card-body">
+                        <h6 class="sec-title">HOW TO VIEW YOUR PROFILE AND LOG OUT</h6>
+                        <div class="instructions">
+                          <i class="far fa-user-circle"></i>&nbsp;<b>To view profile</b>:
+                          <ul>
+                            <li>Select 'My Profile'.</li>
+                            <ul>
+                              <li>If changes are necessary, contact the <u>Administrative Division</u>.</li>
+                            </ul>
+                          </ul>
+                          <i class="fas fa-sign-out-alt"></i>&nbsp;<b>To log out from your account:</b>
+                          <ul>
+                            <li>Select 'Logout'.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+<!-- 2 -->
+
+<!-- 3 -->
+              <div class="card card-chart">
+                <div class="card-header">
+                </div>
+                <div class="col-md-12">
+                  <p class="card-category">How to use the system:</p>
+                  <button class="tablink active five-tabs" onclick="openPage('Pending2', this, '#ffd95c', 'black')" id="defaultOpen"><i class="now-ui-icons files_single-copy-04 ui-1_bell-53 home-buttons"></i><br> VIEW PENDING <br>REPORTS</button>
+                  <button class="tablink five-tabs" onclick="openPage('Accounts1', this, '#ffd95c', 'black')" id="defaultOpen"><i class="now-ui-icons files_single-copy-04 users_circle-08 home-buttons"></i><br> MANAGE <br>ACCOUNTS</button>
+                  <button class="tablink five-tabs" onclick="openPage('Positions1', this, '#ffd95c', 'black')" id="defaultOpen"><i class="now-ui-icons files_single-copy-04 objects_globe home-buttons"></i><br> MANAGE <br>POSITIONS</button>
+                  <button class="tablink five-tabs" onclick="openPage('Archive1', this, '#ffd95c', 'black')"><i class="now-ui-icons files_box home-buttons"></i><br> VIEW <br>ARCHIVE</button>
+                  <button class="tablink five-tabs" onclick="openPage('Settings3', this, '#ffd95c', 'black')"><i class="now-ui-icons ui-1_settings-gear-63 home-buttons"></i><br>SETTINGS<br><br></button>
+                  <br>
+                  <br>
+                  <br>
+                  <div id="Pending2" class="tabcontent">
+                    <div class="card-body ">
+                      <h6 class="sec-title"> HOW TO APPROVE ACCOMPLISHMENT REPORTS</h6>
+                      <ol>
+                        <li>Select an employee to view their report.</li>
+                        <li>Review the validity of tasks accomplished by the employee.</li>
+                        <li>If errors within the report are found:</li>
+                        <ul>
+                          <li>Click '<b>Edit</b>'.</li>
+                          <li>Edit necessary information.</li>
+                          <li>Click 'Save'.</li>
+                        </ul>
+                        <li>Click '<b>Approve</b>' to change <u>status</u> of report from "Pending" to "Approved"</li>
+                        <ul>
+                          <li>Report will be sent back to the employee for printing and signing.</li>
+                        </ul>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <div id="Accounts1" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO MANAGE ALL USER ACCOUNTS</h6>
+                      <div class="instructions">
+                        <i class="far fa-plus-square"></i>&nbsp;<b>To create a new account:</b>
+                        <ol>
+                          <li>Click '<b>+ New</b>'.</li>
+                          <li>Select an account type.</li>
+                          <li>Enter account information.</li>
+                          <li>Click 'Create'.</li>
+                        </ol>
+                        <i class="fas fa-edit"></i>&nbsp;<b>To edit a profile:</b>
+                        <ol>
+                          <li>Select an account type.</li>
+                          <li>Select name of user to view their profile.</li>
+                          <li>Click '<b>Profile</b>'.</li>
+                          <li>Edit necessary information.</li>
+                          <ul>
+                            <li>To <u>deactivate</u> an account: Change status from <i class="fa fa-toggle-on text-primary"></i> Active to <i class="fa fa-toggle-off text-gray"></i> Inactive</li>
+                            <ul>
+                              <li>Note: Inactive accounts are transferred to the 'View Archive' page.</li>
+                            </ul>
+                          </ul>
+                          <li>Click 'Save'.</li>
+                        </ol>
+                        <i class="far fa-calendar"></i>&nbsp;<b>To view attendance:</b>
+                        <ol>
+                          <li>Select account type 'Employee'.</li>
+                          <li>Select a section/division.</li>
+                          <li>Select an employee and click '<b>Attendance</b>' to be redirected to their attendance page.</li>
+                        </ol>
+                        <i class="far fa-eye"></i>&nbsp;<b>To view accomplishment reports:</b>
+                          <ol>
+                            <li>Select account type: Employee.</li>
+                            <li>Select a section/division and employee.</li>
+                            <li>Click '<b>Reports</b>' to be redirected to their reports page.</li>
+                            <li>Select the accomplishment report you want to view.</li>
+                            <ul>
+                              <li>Each report has a corresponding status: Pending or Approved.</li>
+                              <li>To delete a report, click '<b>Delete</b>'.</li>
+                              <li>To print an <u>approved</u> accomplishment report, click '<b>Print</b>.'</li>
+                            </ul>
+                            <li>To view changes made to the reports, click '<b>Change Log</b>'.</li>
+                          </ol>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="Positions1" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO MANAGE POSITIONS </h6>
+                      <div class="instructions">
+                        <i class="far fa-eye"></i>&nbsp;<b>To create a new position:</b>
+                        <ol>
+                          <li>Click '<b>+ New</b>'.</li>
+                          <li>Select: Position.</li>
+                          <li>Select section/division of new position.</li>
+                          <li>Input position title.</li>
+                          <li>If employee has generic primary tasks per week/month:</li>
+                          <ol type="a">
+                            <li>Click <i class="fa fa-plus-square text-primary"></i>.</li>
+                            <li>Input task description.</li>
+                          </ol>
+                          <li>Click 'Create'.</li>
+                        </ol>
+                        <i class="far fa-eye"></i>&nbsp;<b>To create a new section/division:</b>
+                        <ol>
+                          <li>Click '<b>+ New</b>'.</li>
+                          <li>Select: Section/Division.</li>
+                          <li>Input Section/Division Name.</li>
+                          <li>Select user assigned to verify reports for the new section/division.</li>
+                          <li>Click 'Create'.</li>
+                        </ol>
+                        <i class="far fa-eye"></i>&nbsp;<b>To edit position details:</b>
+                        <ol>
+                          <li>Click the position title.</li>
+                          <li>Edit all necessary details.</li>
+                          <ul>
+                            <li>To delete a position, click '<b>Delete</b>'.</li>
+                          </ul>
+                          <li>Click 'Save'.</li>
+
+                        </ol>
+                        <i class="far fa-eye"></i>&nbsp;<b>To edit section/division details:</b>
+                        <ol>
+                          <li>Click the section/division name.</li>
+                          <li>Edit all necessary details.</li>
+                          <ul>
+                            <li>To delete a section/division, click '<b>Delete</b>'.</li>
+                          </ul>
+                          <li>Click 'Save'.</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="Archive1" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO MANAGE INACTIVE ACCOUNTS</h6>
+                      <div class="instructions">
+                        <i class="far fa-eye"></i>&nbsp;<b>To reactivate account:</b>
+                        <ol>
+                          <li>Select an account.</li>
+                          <li>Click 'Profile'.</li>
+                          <li>Change status from <i class="fa fa-toggle-off text-gray"></i> Inactive to <i class="fa fa-toggle-on text-primary"></i> Active</li>
+                          <ul>
+                            <li>Report will return to 'Manage Accounts' page.</li>
+                          </ul>
+                        </ol>
+                        <i class="	far fa-file-alt"></i>&nbsp;<b>To delete an account:</b>
+                        <ol>
+                          <li>Select an account.</li>
+                          <li>Click '<b>Delete</b>'.</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="Settings3" class="tabcontent">
+                    <div class="card-body">
+                      <h6 class="sec-title">HOW TO VIEW YOUR PROFILE AND LOG OUT</h6>
+                      <div class="instructions">
+                        <i class="far fa-user-circle"></i>&nbsp;<b>To view profile</b>:
+                        <ul>
+                          <li>Select 'My Profile'.</li>
+                          <ul>
+                            <li>If changes are necessary, go to '<b>Manage Accounts</b>' page and edit the profile details.</li>
+                          </ul>
+                        </ul>
+                        <i class="fas fa-sign-out-alt"></i>&nbsp;<b>To log out from your account:</b>
+                        <ul>
+                          <li>Select 'Logout'.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- 3 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Start of Footer -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="{{ url_for('index.about') }}">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('index.support') }}">
+                  Support
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Design from
+            <a href="https://www.invisionapp.com" target="_blank">Invision</a> & <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>. Developed by ReineTech.
+          </div>
+        </div>
+      </footer>
+<!-- End of Footer -->
+    </div>
+  </div>
+
+
+  <!--   Core JS Files   -->
+  <script src="{{ url_for('static', filename='js/core/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/core/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{{ url_for('static', filename='js/plugins/bootstrap-notify.js') }}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{ url_for('static', filename='js/now-ui-dashboard.min.js?v=1.3.0') }}" type="text/javascript"></script>
+  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <!-- <script src="../assets/demo/demo.js"></script> -->
+  <script>
+  function hexToRGB(hex, alpha) {
+    var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+  }
+
+  function openPage(pageName,elmnt,bgColor, tColor) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+      tablinks[i].style.color = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = bgColor;
+    elmnt.style.color = tColor;
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  </script>
+</body>
+
+</html>

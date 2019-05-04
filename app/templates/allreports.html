@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <!-- <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="../assets/img/favicon.png"> -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    QC-EPWMD | Employee Accomplishment Report System
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+
+  <link rel="logo" sizes="76x76" href="../assets/img/logo.png" />
+  <link rel="icon" type="image/png" href="../assets/img/logo.png" />
+
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link href="../assets/css/bootstrap4.min.css" rel="stylesheet" />
+  <link href="../assets/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+
+</head>
+
+<body class="">
+  <div class="wrapper ">
+<!-- Start of Sidebar -->
+    <div class="sidebar" data-color="blue">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <img src="../assets/img/logo.png" class="system-logo">
+        </a>
+        <a href="#" class="simple-text logo-normal">
+          <h6 class="system-name">EPWMD Employee <br>Accomplishment<br>Report System</h6>
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="./home.html">
+              <i class="now-ui-icons shopping_shop"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li>
+            <a href="./create.html">
+              <i class="now-ui-icons files_single-copy-04"></i>
+              <p>Create New Report</p>
+            </a>
+          </li>
+          <li>
+            <a href="./pending.html">
+              <i class="now-ui-icons ui-1_bell-53"></i>
+              <p>View Pending Reports</p>
+            </a>
+          </li>
+          <li>
+            <a href="./reports.html">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Reports</p>
+            </a>
+          </li>
+          <li>
+            <a href="./accounts.html">
+              <i class="now-ui-icons users_circle-08"></i>
+              <p>Manage Accounts</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="./positions.html">
+              <i class="now-ui-icons objects_globe"></i>
+              <p>Manage Positions</p>
+            </a>
+          </li>
+          <li>
+            <a href="./archive.html">
+              <i class="now-ui-icons files_box"></i>
+              <p>View Archive</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+<!-- End of Sidebar -->
+
+    <div class="main-panel" id="main-panel">
+<!-- Start of Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#positions">Reports</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <!-- <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                  </div>
+                </div>
+              </div>
+            </form> -->
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="now-ui-icons ui-1_settings-gear-63"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Settings</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="./my_profile.html">My Profile</a>
+                  <a class="dropdown-item" href="{{ url_for('login.logout') }}">Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<!-- End Navbar -->
+
+<!-- Start of Header -->
+      <div class="panel-header panel-header-lg">
+        <h5 id="header-title"><b>View Reports</b></h5>
+        <p id="header-desc">This page stores all accomplishment reports.</p>
+        <!-- <canvas id="bigDashboardChart"></canvas> -->
+      </div>
+<!-- End of Header -->
+
+<!-- Start of Content -->
+      <div class="content">
+        <div class="content-2">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-chart">
+                <div class="card-header ">
+                  <p class="card-category">Select an employee to view their accomplishment reports:</p>
+                </div>
+                <div class="card-body">
+
+                  <div class="sectionDivisions">
+                    <br>
+                    <div id="secDiv1">
+                      <h6 class="sec-title">Checker - Administrative Division</h6>
+                      <div id="positions1">
+                        <div id="position1">
+                          <button type="button" class="btn btn-select" data-toggle="modal" data-target="#editPositionForm">
+                            <div class="card card-position">
+                              <div class="card-header">
+                                <p class="name-header">
+                                  ANTONIO, PAUL LAWRENCE O.
+                                </p>
+                              </div>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="addPositionForm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="title">Create New</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="container">
+              <div class="modal-body">
+                <p class="card-category">Select to create new Position or Section:</p>
+                <button class="tablink two-tabs active" onclick="openPage('Position', this, '#4b8bc0', 'white')" id="defaultOpen">POSITION</button>
+                <button class="tablink two-tabs" onclick="openPage('SecDiv', this, '#4b8bc0', 'white')">SECTION</button>
+                <br>
+                <div id="Position" class="tabcontent">
+                  <form action="" class="form-container">
+                    <div class="form-group">
+                      <label>Position Title</label>
+                      <input type="text" class="form-control" placeholder="Position Title" id="positionTitle">
+                    </div>
+                    <label>Section/Division</label>
+                    <div class="form-group">
+                      <div class="form-control">
+                        <select id="section-division" name="Section/Division" class="select-full">
+                          <option value="" disabled selected>Select...</option>
+                          <option value="Admin">Administrative Division</option>
+                          <option value="HR">Human Resources Section</option>
+                          <option value="BF">Budget & Finance Section</option>
+                        </select>
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="pull-right">
+                      <i id="add1" class="fa fa-plus-square" style="font-size:30px;color:#4b8bc0;" onclick="addTaskLine()"></i>
+                    </div>
+                    <label>Primary Tasks</label>
+
+                    <div id="primaryTasks">
+                      <br>
+                    </div>
+                    <br>
+
+                    <button type="button" class="btn btn-md btn-wide btn-success" onclick="addNewPosition()" data-dismiss="modal">CREATE</button>
+                    <br><br>
+                  </form>
+                </div>
+
+                <div id="SecDiv" class="tabcontent">
+
+                  <form action="" class="form-container">
+
+                    <div class="form-group">
+                      <label>Section/Division Name</label>
+                      <input type="text" class="form-control" id="secDivName" placeholder="Section/Division Name">
+                    </div>
+                    <label>Verifier</label>
+                    <div class="form-group">
+                      <div class="form-control">
+                        <select id="section-division" name="Section/Division" class="select-full">
+                          <option value="" disabled selected>Select...</option>
+                          <option value="LI">Isidro, Luisito</option>
+                          <option value="VCV">Vinarao, Vanessa Claire B.</option>
+                          <option value="JPS">Sacramento, John Paul</option>
+                          <option value="TBA">TBA</option>
+                        </select>
+                      </div>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-md btn-wide btn-success" onclick="addNewSectionDivision()" data-dismiss="modal">CREATE</button>
+                    <br><br>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="editPositionForm">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="title">Edit Position</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="container">
+              <div class="modal-body">
+                <br>
+                <form action="" class="form-container">
+                  <div class="form-group">
+                    <label>Position Title</label>
+                    <input type="text" class="form-control" placeholder="Position Title" value="" id="positionTitle">
+                  </div>
+                  <label>Section/Division</label>
+                  <div class="form-group">
+                    <div class="form-control">
+                      <select id="section-division" name="Section/Division" class="select-full">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="Admin">Administrative Division</option>
+                        <option value="HR">Human Resources Section</option>
+                        <option value="BF">Budget & Finance Section</option>
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="pull-right">
+                    <i id="add1" class="fa fa-plus-square" style="font-size:30px;color:#4b8bc0;" onclick="addTaskLine()"></i>
+                  </div>
+                  <label>Primary Tasks</label>
+                  <div id="primaryTasks">
+                    <br>
+                  </div>
+                  <br>
+                  <div class="pull-left">
+                    <button type="button" class="btn btn-md btn-danger" onclick="deletePosition()">DELETE</button>
+                  </div>
+                  <div class="pull-right">
+                    <button type="button" class="btn btn-md btn-success" onclick="updatePosition()" data-dismiss="modal">SAVE</button>
+                    <br><br>
+                  </div>
+                </form>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="editSecDiv">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="title">Edit Section/Division</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="container">
+              <div class="modal-body">
+                <form action="" class="form-container">
+                  <br>
+                  <div class="form-group">
+                    <label>Section/Division Name</label>
+                    <input type="text" class="form-control" placeholder="Section/Division Name" value="">
+                  </div>
+                  <label>Verifier</label>
+                  <div class="form-group">
+                    <div class="form-control">
+                      <select id="section-division" name="Section/Division" class="select-full">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="LI">Isidro, Luisito</option>
+                        <option value="VCV" selected>Vinarao, Vanessa Claire B.</option>
+                        <option value="JPS">Sacramento, John Paul</option>
+                      </select>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="pull-left">
+                    <button type="button" class="btn btn-md btn-danger" onclick="deleteSecDiv()">DELETE</button>
+                  </div>
+                  <div class="pull-right">
+                    <button type="button" class="btn btn-md btn-success" onclick="updateSecDiv()" data-dismiss="modal">SAVE</button>
+                  </div>
+                </form>
+              </div>
+              <br>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Start of Footer -->
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav>
+            <ul>
+              <li>
+                <a href="./about.html">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="./support.html">
+                  Support
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright" id="copyright">
+            &copy;
+            <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Design from
+            <a href="https://www.invisionapp.com" target="_blank">Invision</a> & <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>. Developed by ReineTech.
+          </div>
+        </div>
+      </footer>
+<!-- End of Footer -->
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/now-ui-dashboard.min.js?v=1.3.0" type="text/javascript"></script>
+  <!-- <script>
+  function hexToRGB(hex, alpha) {
+    var r = parseInt(hex.slice(1, 3), 16),
+      g = parseInt(hex.slice(3, 5), 16),
+      b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+      return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+  }
+
+  function openPage(pageName,elmnt,bgColor, tColor) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+      tablinks[i].style.color = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = bgColor;
+    elmnt.style.color = tColor;
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  </script>
+
+  <script>
+
+  var secDiv = 1;
+
+  function addNewSectionDivision() {
+    var name = document.getElementById('secDivName').value;
+
+    var html = `<div id="secDiv${secDiv}">
+      <button class="btn btn-wide btn-link" data-toggle="modal" data-target="#editSecDiv">
+        <div class="pull-right">
+          <i class="fas fa-pen" style="font-size: 12px;"></i>
+          EDIT
+        </div>
+        <div class="pull-left">
+          <h6 class="sec-title">${name}</h6>
+        </div>
+      </button>
+      <div id="positions${secDiv}">
+      </div>
+    </div>`;
+
+    $( ".sectionDivisions" ).append( html );
+
+    secDiv++;
+
+    //will have edit form with its info and when u delete it will refer to this section/division
+    //will delete all sections/divisions under it too
+
+  }
+  </script>
+
+  <script>
+
+  function addNewPosition() {
+    var num = 1;
+    var title = document.getElementById('positionTitle').value;
+
+
+    var html = `<div class="position${num}">
+    <button type="button" class="btn btn-select"  data-toggle="modal" data-target="#editPositionForm">
+      <div class="card card-position">
+        <div class="card-header">
+          <p class="name-header">
+            ${title}
+          </p>
+        </div>
+      </div>
+    </button>
+    </div>`;
+
+    $( "#position1" ).append(html);
+
+    num++;
+
+    //should delete position only
+    //when this is clicked, to delete, get value of this position
+
+    //section/division options from admin and chief accounts
+    //get section/division value
+    //add position under section/division chosen to #positions${#}
+    //note: change value of #position1 to div of positions under section chosen
+  }
+  </script>
+
+  <script>
+  var lines = 1;
+  function addTaskLine() {
+    var title = document.getElementById('positionTitle').value;
+
+    var html = `<div class="row pTask" id="taskLine${lines}">
+    <span class="col-sm-11">
+      <div class="form-group">
+      <input type="text" class="form-control" placeholder="Task">
+      </div>
+    </span>
+    <span class="col-sm-1">
+        <i id="delete${lines}" class="material-icons select-icon" style="font-size:30px;color:#DB3636;" onclick="deleteTaskLine(${lines})">remove_circle</i>
+
+      </span>
+      </div>`;
+
+      $( "#primaryTasks" ).append(html);
+
+      lines++;
+
+      //fix add task line button to reflect in edit form instead of create form
+  }
+  </script>
+
+  <script>
+  function deleteTaskLine(line) {
+      $(`#taskLine${line}`).remove();
+
+      //fix add task line button to reflect in edit form instead of create form
+    }
+  </script>
+
+  <script>
+  function deleteSecDiv(secDivNum) {
+    var result = confirm("Are you sure you want to delete this section/division?");
+    if (result) {
+      $(`#secDiv${secDivNum}`).remove();
+
+      //add value to deleteSecDiv() in edit form
+      //close modal
+
+    }
+  }
+  </script>
+
+  <script>
+  function deletePosition(positionNum) {
+    var result = confirm("Are you sure you want to delete this position?");
+    if (result) {
+      $(`#position${positionNum}`).remove();
+
+      //add value to deleteSecDiv() in edit form
+      //close modal
+
+    }
+  }
+  </script>
+
+  <script>
+  function updatePosition() {
+
+    //get value from create new position form
+    //save changes
+    //close modal
+
+    }
+  }
+  </script>
+
+  <script>
+  function updateSecDiv() {
+
+      //get value from create new section/division form
+      //save changes
+      //close modal
+
+    }
+  }
+  </script> -->
+
+</body>
+
+</html>
