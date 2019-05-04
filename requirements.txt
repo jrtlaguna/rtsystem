@@ -1,0 +1,6 @@
+Flask
+flask-login
+Flask-RESTful
+flask-wtf
+pymysql
+werkzeug
