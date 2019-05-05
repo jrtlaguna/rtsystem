@@ -64,7 +64,6 @@ def index():
               tasks = get_tasks_week(data)
               w['tasks'] = tasks
 
-  print(positions)
   return render_template('pending.html', data=positions, division=division)
 
 

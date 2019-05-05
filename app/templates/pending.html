@@ -165,15 +165,15 @@
                     <!-- employees -->
                       {% for employee in period.employees %}
                     <div class="card">
-                      <div class="card-header" role="tab" id="headingOne11">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseOne11"
-                          aria-expanded="false" aria-controls="collapseOne11">
+                      <div class="card-header" role="tab" id="heading{{employee.employeeId}}">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapse{{employee.employeeId}}"
+                          aria-expanded="false" aria-controls="collapse{{employee.employeeId}}">
                           <p class="name-header">
                             {{employee.lastName}}, {{employee.firstName}} {{employee.middleInitial}}. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
                           </p>
                         </a>
                       </div>
-                      <div id="collapseOne11" class="collapse" role="tabpanel" aria-labelledby="headingOne11" data-parent="#accordionEx1">
+                      <div id="collapse{{employee.employeeId}}" class="collapse" role="tabpanel" aria-labelledby="heading{{employee.employeeId}}" data-parent="#accordionEx1">
                       <!-- start of reports -->
                         {% for report in employee.reports %}
                         <div class="card-body">
