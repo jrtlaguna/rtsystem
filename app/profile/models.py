@@ -94,6 +94,7 @@ class Chief(Profile):
     def __init__(self, username):
         Profile.__init__(self, username)
         self.section_division = None
+        self.divisionId = None
 
         self.__load_details()
 
@@ -103,7 +104,7 @@ class Chief(Profile):
 
         try:
             with connection.cursor() as cursor:
-                sql = ('SELECT sd.name '
+                sql = ('SELECT sd.name, c.sectionDivision '
                     'FROM chief c '
                     'INNER JOIN sectionDivision sd '
                     'ON c.sectionDivision = sd.id '
@@ -114,6 +115,7 @@ class Chief(Profile):
                 result = cursor.fetchone()
                 if result:
                     self.section_division = result[0]
+                    self.divisionId = result[1]
 
         finally:
             connection.close()

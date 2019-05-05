@@ -23,6 +23,8 @@ def index():
 def task_post():
   profile = None
 
+
+
   profile = Employee(current_user.username)
   data = request.get_json()
 
