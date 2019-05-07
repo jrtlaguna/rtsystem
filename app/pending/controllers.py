@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, url_for
+from app.positions.services import get_position_list, get_section_division_list
 from app.profile.models import Admin, Chief
 from app.pending.services import *
+from json import dumps
 from flask_login import current_user
 from datetime import datetime
 import calendar
@@ -13,15 +15,18 @@ year = now.year
 
 @pendingbp.route('/')
 def index():
-  if current_user.account_type.lower() == 'chief':
+  if current_user.account_type.lower() == 'employee':
+    return render_template('home.html', message='Account type not permitted.')
+  elif current_user.account_type.lower() == 'chief':
     profile = Chief(current_user.username)
-    division = (profile.divisionId)
+    divisions = get_divisions(profile.divisionId)
+  elif current_user.account_type.lower() == 'admin':
+    divisions = get_all_divisions()
 
-
-    positionArray = []
-
-    positions = get_positions(division)
-
+  for dv in divisions:
+    positions = []
+    positions = get_positions(dv['id'])
+    dv['positions'] = positions
     for po in positions:
       periodIndex = []
       periods = []
@@ -50,7 +55,7 @@ def index():
           }
           em['firstName'] = em['firstName'].upper()
           em['lastName'] = em['lastName'].upper()
-          reports =  get_reports_employee(data)
+          reports =  get_reports_employee_pending(data)
           em['reports'] = reports
           for rp in reports:
             weeks = get_weeks_report(rp['id'])
@@ -64,8 +69,20 @@ def index():
               tasks = get_tasks_week(data)
               w['tasks'] = tasks
 
-  return render_template('pending.html', data=positions, division=division)
 
+  return render_template('pending.html', data=divisions)
+
+@pendingbp.route('/approve', methods=['POST'])
+def approve():
+
+  data = request.get_json()
+
+  reportId = data['reportId']
+
+  print(reportId)
+  status = approve_report(reportId)
+
+  return dumps({'redirect': url_for('index.reports')})
 
 
 

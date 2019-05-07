@@ -152,8 +152,9 @@
                 <div class="card-header ">
                   <p class="card-category">Select an employee to review their Accomplishment Report:</p>
                   <!-- start of position -->
-                  {% for position in data %}
-                    <h6 class="sec-title">{{position.title}}</h6>
+                  {% for division in data %}
+                  {% for position in division.positions %}
+                    <h6 class="sec-title">{{position.title}} - {{division.name}}</h6>
                     <!-- start of period -->
                     {% for period in position.periods %}
                   <div class="pull-right">
@@ -178,7 +179,7 @@
                         {% for report in employee.reports %}
                         <div class="card-body">
                           <div class="row">
-                            <table id="summary1">
+                            <table id="report{{report.id}}">
                               <tr>
                                 <th width="20%">Date</th>
                                 <th>Task Accomplished</th>
@@ -205,7 +206,7 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportForm">Edit</button>
                           </div>
                           <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Approve</button>
+                            <button type="submit" id="approve-report-{{report.id}}" class="btn btn-success" value="{{report.id}}" onclick="approveReport(this)">Approve</button>
                           </div>
                         </div>
                         <!-- end of reports -->
@@ -219,6 +220,7 @@
         {% endfor %}
 <!-- end of position -->
 <br>
+  {% endfor %}
 {% endfor %}
 <!-- batch 2-->
                 </div>
@@ -548,7 +550,26 @@
   );
   </script>
 
-  <!-- from create html -->
+  <script >
+    function approveReport(report) {
+      const data = {}
+      data.reportId = report.value
+
+      $.ajax({
+        type: 'POST',
+        url: "{{ url_for('pending.approve')}}",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+          alert('Report approved!')
+          window.location = response['redirect']
+        }
+      }).done(function(msg) {
+        console.log(msg)
+      })
+    }
+  </script>
 
 
 </body>

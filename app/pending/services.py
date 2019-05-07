@@ -1,5 +1,45 @@
 from app import get_db_connection
 
+def get_divisions(id):
+  connection = get_db_connection()
+  divisions = []
+
+  try:
+    with connection.cursor() as cursor:
+      sql = ('SELECT * FROM sectionDivision where id = %s')
+      cursor.execute(sql, (id))
+      result = cursor.fetchall()
+      for r in result:
+        division = {
+          'id': r[0],
+          'name': r[1],
+          'verfier': r[2]
+        }
+        divisions.append(division)
+
+  finally:
+    connection.close()
+  return divisions
+
+def get_all_divisions():
+  connection = get_db_connection()
+  divisions = []
+  try:
+    with connection.cursor() as cursor:
+      sql = ('SELECT * from sectionDivision')
+      cursor.execute(sql)
+      result = cursor.fetchall()
+      for r in result:
+        division = {
+          'id': r[0],
+          'name': r[1]
+        }
+        divisions.append(division)
+
+  finally:
+    connection.close()
+  return divisions
+
 
 
 def get_positions(division):
@@ -122,8 +162,8 @@ def get_reports_employee(data):
 
   try:
     with connection.cursor() as cursor:
-      sql = ('SELECT id, status, attendancePeriod FROM report '
-        'WHERE employeeId = %s AND attendancePeriod = %s'
+      sql = ("SELECT id, status, attendancePeriod FROM report "
+        "WHERE employeeId = %s AND attendancePeriod = %s AND status = 'PENDING' "
         )
       cursor.execute(sql, (data['employee'], data['period']))
       result = cursor.fetchall()
@@ -185,6 +225,19 @@ def get_tasks_week(data):
 
   return tasks
 
+def approve_report(id):
+  connection = get_db_connection()
+
+  try:
+    with connection.cursor() as cursor:
+      sql = ("UPDATE report SET status = 'APPROVED' where id = %s ")
+      result = cursor.execute(sql, (id))
+
+    connection.commit()
+  finally:
+    connection.close()
+
+  return result
 
 
 # get all positions where sd = division
