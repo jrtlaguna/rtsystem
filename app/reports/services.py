@@ -86,21 +86,52 @@ def get_chief_employees(id):
 
   return employees
 
-# def get_report_details(id):
-#   connection = get_db_connection()
+def get_report_details(id):
+  connection = get_db_connection()
 
-#   try:
-#     with connection.cursor() as cursor:
-#       sql = ("SELECT e.firstName, e.middleInitial, e.lastName, r.attendancePeriod, sd.name "
-#           "FROM employee e INNER JOIN report r ON r.employeeId = e.id INNER JOIN employeePosition ep ON "
-#           "e.employeePosition = ep.id INNER JOIN sectionDivision sd ON ep.sectionDivision = sd.id "
-#           "WHERE r.id = %s"
-#         )
-#       cursor.execute(sql, (id))
-#       result = cursor.fetchall()
-#       for r in result:
-#         report = {
-#           'firstName': r[0],
-#           'lastName': r[1],
-#           ''
-#         }
+  try:
+    with connection.cursor() as cursor:
+      sql = ("SELECT a.firstName, a.middleInitial, a.lastName, r.attendancePeriod, sd.id "
+          "FROM account a INNER JOIN employee e ON e.accountId = a.id INNER JOIN report r ON r.employeeId = e.id INNER JOIN employeePosition ep ON "
+          "e.employeePosition = ep.id INNER JOIN sectionDivision sd ON ep.sectionDivision = sd.id "
+          "WHERE r.id = %s"
+        )
+      cursor.execute(sql, (id))
+      result = cursor.fetchall()
+      for r in result:
+        report = {
+          'firstName': r[0],
+          'middleInitial': r[1],
+          'lastName': r[2],
+          'period': r[3],
+          'divisionId': r[4]
+        }
+
+  finally:
+    connection.close()
+
+  return report
+
+def get_chief_details(id):
+  connection = get_db_connection()
+
+  try:
+    with connection.cursor() as cursor:
+      sql = ("SELECT a.firstName as firstName, a.lastName as lastName, a.middleInitial as middileInitial "
+          "FROM chief c INNER JOIN account a ON a.id = c.accountId WHERE c.sectionDivision = %s"
+        )
+      cursor.execute(sql, (id))
+      result = cursor.fetchall()
+      for r in result:
+        chief = {
+          'firstName': r[0],
+          'lastName': r[1],
+          'middleInitial': r[2]
+        }
+
+  finally:
+    connection.close()
+
+  return chief
+
+
