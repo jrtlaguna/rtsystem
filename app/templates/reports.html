@@ -150,23 +150,26 @@
             <div class="col-md-12">
               <div class="card card-chart">
                 <button type="button" class="btn btn-link"><i class="now-ui-icons arrows-1_minimal-left"></i> BACK TO MANAGE ACCOUNTS</button>
+                {% for employee in data.employees %}
                 <div class="card-header">
-                    <h5 id="main-profile">ANTONIO, PAUL LAWRENCE O.</h5>
-                    <p class="title-header">Checker - Administrative Division</p>
+                    <h5 id="main-profile">{{employee.lastName}}, {{employee.firstName}} {{employee.middleInitial}}.</h5>
+                    <p class="title-header">{{employee.position}} - {{employee.division}}</p>
                 </div>
                 <div class="card-body ">
                   <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                    <!-- start of report -->
+                    {% for report in employee.reports %}
                     <div id="report1"class="card">
                       <div class="card-header" role="tab" id="headingOne11">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseOne11" aria-expanded="false" aria-controls="collapseOne11">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseOne{{report.id}}" aria-expanded="false" aria-controls="collapseOne11">
                           <h6 class="mb-0">
-                            FEBRUARY 26 - MARCH 25, 2019 <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
+                            {{report.periodName}}<i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
                           </h6>
-                          <p class="report-status">Pending</p>
+                          <p class={{report.status}}>Pending</p>
                         </a>
                       </div>
 
-                      <div id="collapseOne11" class="collapse" role="tabpanel" aria-labelledby="headingOne11" data-parent="#accordionEx1">
+                      <div id="collapseOne{{report.id}}" class="collapse" role="tabpanel" aria-labelledby="headingOne11" data-parent="#accordionEx1">
                         <div class="card-body">
                           <div class="row">
     												<table id="summary1">
@@ -174,26 +177,18 @@
     												    <th width="20%">Date</th>
     												    <th>Task Accomplished</th>
     												  </tr>
+                              {% for week in report.weeks %}
     												  <tr>
-    												    <td style="text-align:center">December 26 - 29, 2018</td>
+    												    <td style="text-align:center">{{week.weekName}}</td>
     												    <td>
     															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
+                                    {% for task in week.tasks %}
+    																<li>{{task.description}}</li>
+                                    {% endfor %}
     															</ol>
     														</td>
     												  </tr>
-    												  <tr>
-    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-    														<td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
+                              {% endfor %}
     												</table>
     											</div>
                           <div class="pull-left">
@@ -206,64 +201,15 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="card">
-
-                      <div class="card-header" role="tab" id="headingTwo21">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
-                          aria-expanded="false" aria-controls="collapseTwo21">
-                          <h6 class="mb-0">
-                            JANUARY 26 - FEBRUARY 25, 2019 <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
-                          </h6>
-                          <p class="report-status">Approved</p>
-                        </a>
-                      </div>
-
-                      <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21" data-parent="#accordionEx1">
-                        <div class="card-body">
-                          <div class="row">
-    												<table id="summary2">
-    												  <tr>
-    												    <th width="20%">Date</th>
-    												    <th>Task Accomplished</th>
-    												  </tr>
-    												  <tr>
-    												    <td style="text-align:center">December 26 - 29, 2018</td>
-    												    <td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												  <tr>
-    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-    														<td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												</table>
-    											</div>
-                          <div class="pull-left">
-                            <button type="button" class="btn btn-danger">Delete</button>
-                          </div>
-                          <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Edit</button>&nbsp;
-                            <button type="submit" class="btn btn-success">Print</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="pull-right">
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+                  <div class="col-md-12">
+                    <div class="pull-right ">
                       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#viewEditHistory">Change Log</button>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>

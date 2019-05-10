@@ -156,7 +156,7 @@ def get_employees_period(data):
     connection.close()
   return employees
 
-def get_reports_employee(data):
+def get_reports_employee_pending(data):
   connection = get_db_connection()
   reports = []
 
