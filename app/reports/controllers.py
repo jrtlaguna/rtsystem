@@ -45,7 +45,6 @@ def index():
     employee['reports'] = reports
     employees.append(employee)
     data['employees'] = employees
-    print(employee)
 
     return render_template('reports.html', data=data)
 
@@ -89,10 +88,44 @@ def printReport():
   reportId = request.form['reportId']
   css = ['pdf.css']
 
-  # report = get_report_details(reportId)
+  report = get_report_details(reportId)
+  chief = get_chief_details(report['divisionId'])
+
+  report['firstName'] = report['firstName'].upper()
+  report['lastName'] = report['lastName'].upper()
+  report['middleInitial'] = report['middleInitial'].upper()
 
 
-  rendered = render_template('report_template.html')
+  chief['firstName'] = chief['firstName'].upper()
+  chief['lastName'] = chief['lastName'].upper()
+  chief['middleInitial'] = chief['middleInitial'].upper()
+
+  payrollId = report['period'] + 1
+
+  report['periodName'] = period_to_object(report['period'])
+  report['payroll'] = period_to_object(payrollId)
+
+  weeks = get_weeks_report(reportId)
+
+  for w in weeks:
+    w['weekName'] = get_week_name(w)
+    data = {
+      'week': w['id'],
+      'report': reportId
+    }
+    tasks = get_tasks_week(data)
+    w['taskCount'] = len(tasks)
+    w['tasks'] = tasks
+
+  report['weeks'] = weeks
+
+  data['chief'] = chief
+  data['report'] = report
+
+
+  rendered = render_template('report_template.html', data=data)
+
+
   pdf = pdfkit.from_string(rendered, False, css=css)
 
   response = make_response(pdf)
