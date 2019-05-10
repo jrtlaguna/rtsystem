@@ -151,224 +151,78 @@
               <div class="card card-chart">
                 <div class="card-header ">
                   <p class="card-category">Select an employee to review their Accomplishment Report:</p>
+                  <!-- start of position -->
+                  {% for division in data %}
+                  {% for position in division.positions %}
+                    <h6 class="sec-title">{{position.title}} - {{division.name}}</h6>
+                    <!-- start of period -->
+                    {% for period in position.periods %}
                   <div class="pull-right">
-                    <p class="attendance-title">December 26, 2018 - January 25, 2019</p>
+                    <p class="attendance-title">{{period.name}}</p>
                   </div>
-                    <h6 class="sec-title">Checker - Administrative Division</h6>
                 </div>
                 <div class="card-body ">
                   <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                    <!-- employees -->
+                      {% for employee in period.employees %}
                     <div class="card">
-                      <div class="card-header" role="tab" id="headingOne11">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseOne11"
-                          aria-expanded="false" aria-controls="collapseOne11">
+                      <div class="card-header" role="tab" id="heading{{employee.employeeId}}">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapse{{employee.employeeId}}"
+                          aria-expanded="false" aria-controls="collapse{{employee.employeeId}}">
                           <p class="name-header">
-                            ANTONIO, PAUL LAWRENCE O. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
+                            {{employee.lastName}}, {{employee.firstName}} {{employee.middleInitial}}. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
                           </p>
                         </a>
                       </div>
-                      <div id="collapseOne11" class="collapse" role="tabpanel" aria-labelledby="headingOne11" data-parent="#accordionEx1">
+                      <div id="collapse{{employee.employeeId}}" class="collapse" role="tabpanel" aria-labelledby="heading{{employee.employeeId}}" data-parent="#accordionEx1">
+                      <!-- start of reports -->
+                        {% for report in employee.reports %}
                         <div class="card-body">
                           <div class="row">
-    												<table id="summary1">
-    												  <tr>
-    												    <th width="20%">Date</th>
-    												    <th>Task Accomplished</th>
-    												  </tr>
-    												  <tr>
-    												    <td style="text-align:center">December 26 - 29, 2018</td>
-    												    <td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												  <tr>
-    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-    														<td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												</table>
-    											</div>
+                            <table id="report{{report.id}}">
+                              <tr>
+                                <th width="20%">Date</th>
+                                <th>Task Accomplished</th>
+                              </tr>
+                                <!-- weeks -->
+                                {% for week in report.weeks %}
+                              <tr>
+                                <td style="text-align:center">{{week.weekName}}</td>
+                                <td>
+                                  <ol>
+                                    <!-- tasks -->
+                                    {% for task in week.tasks %}
+                                    <li>{{task.description}}</li>
+                                    <!-- end of tasks -->
+                                    {% endfor %}
+                                  </ol>
+                                </td>
+                              </tr>
+                                  <!-- end of weeks -->
+                                  {% endfor %}
+                            </table>
+                          </div>
                           <div class="pull-left">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportForm">Edit</button>
                           </div>
                           <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Approve</button>
+                            <button type="submit" id="approve-report-{{report.id}}" class="btn btn-success" value="{{report.id}}" onclick="approveReport(this)">Approve</button>
                           </div>
                         </div>
+                        <!-- end of reports -->
+                        {% endfor %}
                       </div>
-                    </div>
-
-                    <div class="card">
-
-                      <div class="card-header" role="tab" id="headingTwo21">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
-                          aria-expanded="false" aria-controls="collapseTwo21">
-                          <p class="name-header">
-                            BACSAL, RICHARD M. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
-                          </p>
-                        </a>
-                      </div>
-
-                      <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21" data-parent="#accordionEx1">
-                        <div class="card-body">
-                          <div class="row">
-
-    												<table id="summary2">
-    												  <tr>
-    												    <th width="20%">Date</th>
-    												    <th>Task Accomplished</th>
-    												  </tr>
-    												  <tr>
-    												    <td style="text-align:center">December 26 - 29, 2018</td>
-    												    <td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												  <tr>
-    														<td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-    														<td>
-    															<ol>
-    																<li>Updated Daily Time Records (DTR)</li>
-    																<li>Sorted personnels forms</li>
-    																<li>Performed other functions</li>
-    															</ol>
-    														</td>
-    												  </tr>
-    												</table>
-    											</div>
-                          <div class="pull-left">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportForm">Edit</button>
-                          </div>
-                          <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Approve</button>
-                          </div>
-                        </div>
-                      </div>
+                      <!-- end of employee -->
                     </div>
                   </div>
-
+                      {% endfor %}
+        <!-- end of period -->
+        {% endfor %}
+<!-- end of position -->
+<br>
+  {% endfor %}
+{% endfor %}
 <!-- batch 2-->
-                  <br>
-                  <div class="pull-right">
-                    <p class="attendance-title">December 26, 2018 - January 25, 2019</p>
-                  </div>
-                  <h6 class="sec-title">Database Analyst - Administrative Division</h6>
-                </div>
-                <div class="card-body ">
-                  <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
-                    <div class="card">
-                      <div class="card-header" role="tab" id="headingFour41">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseFour41" aria-expanded="false" aria-controls="collapseFour41">
-                          <p class="name-header">
-                            ATIENZA, THELMA C. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
-                          </p>
-                        </a>
-                      </div>
-
-                      <div id="collapseFour41" class="collapse" role="tabpanel" aria-labelledby="headingFour41" data-parent="#accordionEx1">
-                        <div class="card-body">
-                          <div class="row">
-                            <table id="summary3">
-                              <tr>
-                                <th width="20%">Date</th>
-                                <th>Task Accomplished</th>
-                              </tr>
-                              <tr>
-                                <td style="text-align:center">December 26 - 29, 2018</td>
-                                <td>
-                                  <ol>
-                                    <li>Updated Daily Time Records (DTR)</li>
-                                    <li>Sorted personnels forms</li>
-                                    <li>Performed other functions</li>
-                                  </ol>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-                                <td>
-                                  <ol>
-                                    <li>Updated Daily Time Records (DTR)</li>
-                                    <li>Sorted personnels forms</li>
-                                    <li>Performed other functions</li>
-                                  </ol>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                          <div class="pull-left">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                          </div>
-                          <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Approve</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="card">
-
-                      <div class="card-header" role="tab" id="headingFive51">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseFive51" aria-expanded="false" aria-controls="collapseFive51">
-                          <p class="name-header">
-                            CABAL, MARICAR C. <i class="fas fa-angle-down rotate-icon" style="float: right;"></i>
-                          </p>
-                        </a>
-                      </div>
-
-                      <div id="collapseFive51" class="collapse" role="tabpanel" aria-labelledby="headingFive51" data-parent="#accordionEx1">
-                        <div class="card-body">
-                          <div class="row">
-
-                            <table id="summary4">
-                              <tr>
-                                <th width="20%">Date</th>
-                                <th>Task Accomplished</th>
-                              </tr>
-                              <tr>
-                                <td style="text-align:center">December 26 - 29, 2018</td>
-                                <td>
-                                  <ol>
-                                    <li>Updated Daily Time Records (DTR)</li>
-                                    <li>Sorted personnels forms</li>
-                                    <li>Performed other functions</li>
-                                  </ol>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style="text-align:center">December 31, 2018 - January 5, 2019</td>
-                                <td>
-                                  <ol>
-                                    <li>Updated Daily Time Records (DTR)</li>
-                                    <li>Sorted personnels forms</li>
-                                    <li>Performed other functions</li>
-                                  </ol>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                          <div class="pull-left">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                          </div>
-                          <div class="pull-right">
-                            <button type="submit" class="btn btn-success">Approve</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -605,7 +459,7 @@
 
   <!--   Core JS Files   -->
   <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript"></script>
-	<script src="{{ url_for('static', filename='js/jquery-ui.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='js/jquery-ui.js') }}" type="text/javascript"></script>
   <script src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/core/bootstrap.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
@@ -614,89 +468,108 @@
   <!-- from create html -->
   <script src="{{ url_for('static', filename='js/material-bootstrap-wizard.js') }}"></script>
 
-<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/create.js') }}"></script>
-	<script>
-		$('#attendance-period').change(function() {
-			var attendancePeriod = getAttendancePeriod($(this).val());
-			var payrollPeriod = getPayrollPeriod($(this).val());
-			$('#attendance-period-label').text(attendancePeriod);
-			$('#payroll-period-label').text(payrollPeriod);
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/  -->
+  <script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/create.js') }}"></script>
+  <script>
+    $('#attendance-period').change(function() {
+      var attendancePeriod = getAttendancePeriod($(this).val());
+      var payrollPeriod = getPayrollPeriod($(this).val());
+      $('#attendance-period-label').text(attendancePeriod);
+      $('#payroll-period-label').text(payrollPeriod);
 
-			updateTaskTab(attendancePeriod);
-		});
+      updateTaskTab(attendancePeriod);
+    });
 
-		function updateTaskTab(attendancePeriod) {
-			var weeks = getWeeksInMonth(attendancePeriod);
-			$('#task-cards').empty();
-			$('#select-week').empty();
-			$('#task-cards').append(`
-					<div class="row">
-						<span class="col-sm">
-							<p class="info-text"> Select all accomplished tasks per week. </p>
-						</span>
-						<span class="col-sm-3">
-							<div class="pull-right">
-								<button type="button" class="btn btn-md btn-primary btn-add" data-toggle="modal" data-target="#addTaskForm">Add Task</button>
-							</div>
-						</span>
-					</div>`);
-			for( w in weeks) {
-				$('#task-cards').append(`<div id="card${w}" class="card"></div>`);
-				$(`#card${w}`).append(`<div id="card${w}-header" class="card-header" role="tab" id="headingOne1"></div>`);
-				$(`#card${w}-header`).append(`<a data-toggle="collapse" data-parent="#task-cards" href="#collapse${w}" aria-expanded="false" aria-controls="collapse${w}"><h6 class="mb-0">${weeks[w]} <i class="fas fa-angle-down rotate-icon" style="float: right;"></i></h6></a>`);
-				$(`#card${w}`).append(`<div id="collapse${w}" class="collapse" role="tabpanel" aria-labelledby="heading-${w}" data-parent="#task-cards"></div>`);
-				$(`#collapse${w}`).append('<div class="card-body"></div>');
+    function updateTaskTab(attendancePeriod) {
+      var weeks = getWeeksInMonth(attendancePeriod);
+      $('#task-cards').empty();
+      $('#select-week').empty();
+      $('#task-cards').append(`
+          <div class="row">
+            <span class="col-sm">
+              <p class="info-text"> Select all accomplished tasks per week. </p>
+            </span>
+            <span class="col-sm-3">
+              <div class="pull-right">
+                <button type="button" class="btn btn-md btn-primary btn-add" data-toggle="modal" data-target="#addTaskForm">Add Task</button>
+              </div>
+            </span>
+          </div>`);
+      for( w in weeks) {
+        $('#task-cards').append(`<div id="card${w}" class="card"></div>`);
+        $(`#card${w}`).append(`<div id="card${w}-header" class="card-header" role="tab" id="headingOne1"></div>`);
+        $(`#card${w}-header`).append(`<a data-toggle="collapse" data-parent="#task-cards" href="#collapse${w}" aria-expanded="false" aria-controls="collapse${w}"><h6 class="mb-0">${weeks[w]} <i class="fas fa-angle-down rotate-icon" style="float: right;"></i></h6></a>`);
+        $(`#card${w}`).append(`<div id="collapse${w}" class="collapse" role="tabpanel" aria-labelledby="heading-${w}" data-parent="#task-cards"></div>`);
+        $(`#collapse${w}`).append('<div class="card-body"></div>');
 
-				$('#select-week').append(`<option value="${w}">${weeks[w]}</option>`);
-			}
-		}
-	</script>
-	<script>
-		function addTask() {
-			var week = $('#select-week').children('option:selected').val();
-			var name = $('#task-name').val();
+        $('#select-week').append(`<option value="${w}">${weeks[w]}</option>`);
+      }
+    }
+  </script>
+  <script>
+    function addTask() {
+      var week = $('#select-week').children('option:selected').val();
+      var name = $('#task-name').val();
 
-			var html = `<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" value="">${name}<span class="form-check-sign">
-					<span class="check"></span>
-				</span>
-			</label>
-			<div class="edit-delete">
-				<i class="material-icons" style="font-size: 20px;">create</i>
-				<i class="material-icons" style="font-size: 20px; color: #db3636;">clear</i>
-			</div>`;
+      var html = `<div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox" value="">${name}<span class="form-check-sign">
+          <span class="check"></span>
+        </span>
+      </label>
+      <div class="edit-delete">
+        <i class="material-icons" style="font-size: 20px;">create</i>
+        <i class="material-icons" style="font-size: 20px; color: #db3636;">clear</i>
+      </div>`;
 
-			if( $('#recurring-toggle').prop('checked')) {
-				$('#select-week option').each(function() {
-					$(`#collapse${$(this).val()} > .card-body`).append(html);
-					$('#recurring-toggle').prop('checked', false);
-				});
-			} else {
-					$(`#collapse${week} > .card-body`).append(html);
-			}
+      if( $('#recurring-toggle').prop('checked')) {
+        $('#select-week option').each(function() {
+          $(`#collapse${$(this).val()} > .card-body`).append(html);
+          $('#recurring-toggle').prop('checked', false);
+        });
+      } else {
+          $(`#collapse${week} > .card-body`).append(html);
+      }
 
-			$('#task-name').val('');
-		}
-	</script>
+      $('#task-name').val('');
+    }
+  </script>
 
   <script>
-	$( "#datepicker" ).datepicker({
-		inline: true
-	});
+  $( "#datepicker" ).datepicker({
+    inline: true
+  });
 
-	// Hover states on the static widgets
-	$( "#dialog-link, #icons li" ).hover(
-		function() {
-			$( this ).addClass( "ui-state-hover" );
-		},
-		function() {
-			$( this ).removeClass( "ui-state-hover" );
-		}
-	);
-	</script>
+  // Hover states on the static widgets
+  $( "#dialog-link, #icons li" ).hover(
+    function() {
+      $( this ).addClass( "ui-state-hover" );
+    },
+    function() {
+      $( this ).removeClass( "ui-state-hover" );
+    }
+  );
+  </script>
 
-  <!-- from create html -->
+  <script >
+    function approveReport(report) {
+      const data = {}
+      data.reportId = report.value
+
+      $.ajax({
+        type: 'POST',
+        url: "{{ url_for('pending.approve')}}",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+          alert('Report approved!')
+          window.location = response['redirect']
+        }
+      }).done(function(msg) {
+        console.log(msg)
+      })
+    }
+  </script>
 
 
 </body>

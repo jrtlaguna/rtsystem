@@ -275,7 +275,7 @@ def create_taskInstance_table(connection):
                 'weekId int NOT NULL, '
                 'quantity int NOT NULL DEFAULT 1,'
                 'reportId int NOT NULL,'
-                'isAccomplished BOOLEAN, '
+                'isAccomplished BOOLEAN DEFAULT TRUE, '
                 'PRIMARY KEY (id), '
                 'FOREIGN KEY (taskId) REFERENCES task(id), '
                 'FOREIGN KEY (weekId) REFERENCES weeklyEntry(id),'
@@ -352,6 +352,9 @@ def create_dummy_data(connection):
             cursor.execute(sql, ('employeeone', generate_password_hash('employeeone'),
                 'Em', 'P', 'Loyee',
                 True, 'Employee'))
+            cursor.execute(sql, ('chief', generate_password_hash('chief'),
+                'Burt', 'C', 'Macklin',
+                True, 'Chief'))
 
             connection.commit()
 
@@ -364,7 +367,13 @@ def create_dummy_data(connection):
 
         with connection.cursor() as cursor:
             sql = ('INSERT INTO employeePosition(positionTitle, sectionDivision) VALUES(%s, %s)')
-            cursor.execute(sql, ('Secretary', 2))
+            cursor.execute(sql, ('Secretary', 1))
+
+            connection.commit()
+
+        with connection.cursor() as cursor:
+            sql = ('INSERT INTO chief(accountId, sectionDivision) VALUES(%s, %s)')
+            cursor.execute(sql, (3, 1))
 
             connection.commit()
 

@@ -1,0 +1,47 @@
+ table{
+  width: 100%;
+  border: 0.5px solid black;
+  border-collapse: collapse;
+}
+
+
+th {
+  text-align: center;
+  vertical-align: center
+  border: 0.5px solid black;
+ }
+
+.left-td{
+  padding-right: 1em;
+  text-align: center;
+  width: 25%;
+}
+.middle-td{
+  text-align: center;
+  width: 50%;
+}
+.right-td{
+  text-align: center;
+  width: 25%;
+  padding-left: 5em;
+}
+.ocs-td
+{
+  width: 35%;
+  vertical-align: bottom;
+  text-align: center;
+  font-size: 9;
+  padding-left: 5em;
+}
+
+.left-name{
+  text-align: center;
+  width: 50%;
+  padding-right: 5em;
+}
+
+.right-name{
+  text-align: center;
+  width: 50%;
+  padding-left: 5em;
+}

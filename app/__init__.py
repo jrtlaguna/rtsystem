@@ -38,10 +38,10 @@ indexbp = Blueprint('index', __name__, template_folder='templates')
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('index.home'))
-        
+
     return redirect(url_for('login.login'))
 
-    
+
 @indexbp.route('/home')
 def home():
     return render_template('home.html')
@@ -67,18 +67,19 @@ def create():
     return render_template('create.html')
 
 
-@indexbp.route('/pending')
-def pending():
-    return render_template('pending.html')
-
-
 @indexbp.route('/reports')
 def reports():
-    return render_template('reports.html')
+    return redirect(url_for('reports.index'))
 
 
 @indexbp.route('/support')
 def support():
     return render_template('support.html')
+
+@indexbp.route('/pending')
+def pending():
+    return redirect(url_for('pending.index'))
+
+
 
 from app.views import *
