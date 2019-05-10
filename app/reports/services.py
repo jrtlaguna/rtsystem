@@ -85,3 +85,22 @@ def get_chief_employees(id):
     connection.close()
 
   return employees
+
+# def get_report_details(id):
+#   connection = get_db_connection()
+
+#   try:
+#     with connection.cursor() as cursor:
+#       sql = ("SELECT e.firstName, e.middleInitial, e.lastName, r.attendancePeriod, sd.name "
+#           "FROM employee e INNER JOIN report r ON r.employeeId = e.id INNER JOIN employeePosition ep ON "
+#           "e.employeePosition = ep.id INNER JOIN sectionDivision sd ON ep.sectionDivision = sd.id "
+#           "WHERE r.id = %s"
+#         )
+#       cursor.execute(sql, (id))
+#       result = cursor.fetchall()
+#       for r in result:
+#         report = {
+#           'firstName': r[0],
+#           'lastName': r[1],
+#           ''
+#         }
