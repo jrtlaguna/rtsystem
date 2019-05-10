@@ -1,12 +1,13 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, make_response, redirect
 from app.profile.models import Chief, Employee
 from app.reports.services import *
 from app.pending.controllers import get_week_name, period_to_object, get_period_name
 from app.pending.services import get_weeks_report, get_tasks_week
 from json import dumps
+import pdfkit
 from flask_login import current_user
 from datetime import datetime
-
+from os.path import join, dirname, realpath
 
 reportsbp = Blueprint('reports', __name__, template_folder='templates', url_prefix='/reports')
 
@@ -80,3 +81,22 @@ def index():
 
 
     return render_template('reports.html', data=data)
+
+
+@reportsbp.route('/print', methods=['POST'])
+def printReport():
+
+  reportId = request.form['reportId']
+  css = ['pdf.css']
+
+  # report = get_report_details(reportId)
+
+
+  rendered = render_template('report_template.html')
+  pdf = pdfkit.from_string(rendered, False, css=css)
+
+  response = make_response(pdf)
+  response.headers['Content-Type'] = 'application/pdf'
+  response.headers['Content-Disposition'] = "attachment; filename=report.pdf"
+
+  return response

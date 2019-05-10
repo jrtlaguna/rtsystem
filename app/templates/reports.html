@@ -196,7 +196,11 @@
                           </div>
                           <div class="pull-right">
                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#editReportForm">Edit</button>&nbsp;
-                            <button type="submit" class="btn btn-success">Print</button>
+                            <form class="inline" action="{{url_for('reports.printReport')}}" method="post">
+                            <button type="submit" id="approve-report-{{report.id}}" value="{{report.id}}" class="btn btn-success">Print</button>
+                            <input id="reportId" name="reportId" type="hidden" value="{{report.id}}" />
+                            </form>
+
                           </div>
                         </div>
                       </div>
@@ -569,6 +573,28 @@
 		}
 	);
 	</script>
+  <script >
+    function printReport(report) {
+      const data = {}
+      data.reportId = report.value
+      $.ajax({
+        type: 'POST',
+        url: "{{ url_for('reports.printReport')}}",
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        error: function(error){
+          console.log(error)
+        },
+        success: function(response) {
+          console.log(response)
+        },
+        timeout: 3000
+      }).done(function(msg) {
+        console.log(msg)
+      })
+    }
+  </script>
 
   <!-- from create html -->
 </body>
